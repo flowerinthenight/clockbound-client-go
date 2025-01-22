@@ -25,9 +25,7 @@ var ClockStatusName = map[ClockStatus]string{
 	ClockStatusFreeRunning:  "FREE_RUNNING",
 }
 
-func (cs ClockStatus) String() string {
-	return ClockStatusName[cs]
-}
+func (cs ClockStatus) String() string { return ClockStatusName[cs] }
 
 type Now struct {
 	Earliest time.Time
