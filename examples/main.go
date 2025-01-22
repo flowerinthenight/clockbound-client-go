@@ -31,7 +31,17 @@ func main() {
 			case <-ticker.C:
 			}
 
-			client.Now()
+			now, err := client.Now()
+			if err != nil {
+				log.Println("Now failed:", err)
+				continue
+			}
+
+			log.Printf("earliest: %v\n", now.Earliest.Format(time.RFC3339Nano))
+			log.Printf("latest  : %v\n", now.Latest.Format(time.RFC3339Nano))
+			log.Printf("range: %v\n", now.Latest.Sub(now.Earliest))
+			log.Printf("status: %v\n", now.Status)
+			log.Println("")
 		}
 	}()
 

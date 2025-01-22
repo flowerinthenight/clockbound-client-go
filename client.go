@@ -3,7 +3,6 @@ package clockboundclient
 import (
 	"encoding/binary"
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -33,6 +32,10 @@ type Client struct {
 }
 
 func (c *Client) Now() (Now, error) {
+	if c.err != nil {
+		return Now{}, c.err
+	}
+
 	// As-of-timestamp
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
@@ -42,25 +45,17 @@ func (c *Client) Now() (Now, error) {
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
 	voidAfter := time.Unix(int64(va_s), int64(va_ns))
-
-	log.Printf("as_of_ts  : %v\n", asof.Format(time.RFC3339Nano))
-	log.Printf("void_after: %v\n", voidAfter.Format(time.RFC3339Nano))
+	_ = voidAfter
 
 	bound := binary.LittleEndian.Uint64(c.m[48:56])
-	log.Printf("bound_ns: 0x%X %d\n", bound, bound)
-
 	status := binary.LittleEndian.Uint32(c.m[64:68])
-	log.Printf("clock_status: 0x%X %d\n", status, status)
-
 	earliest := asof.Add(-1 * (time.Nanosecond * time.Duration(bound)))
 	latest := asof.Add(time.Nanosecond * time.Duration(bound))
 
-	log.Printf("earliest: %v\n", earliest.Format(time.RFC3339Nano))
-	log.Printf("latest  : %v\n", latest.Format(time.RFC3339Nano))
-	log.Printf("range: %v\n", latest.Sub(earliest))
-
 	return Now{
-		Status: ClockStatus(status),
+		Earliest: earliest,
+		Latest:   latest,
+		Status:   ClockStatus(status),
 	}, nil
 }
 
