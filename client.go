@@ -19,6 +19,16 @@ const (
 	ClockStatusFreeRunning
 )
 
+var ClockStatusName = map[ClockStatus]string{
+	ClockStatusUnknown:      "UNKNOWN",
+	ClockStatusSynchronized: "SYNCHRONIZED",
+	ClockStatusFreeRunning:  "FREE_RUNNING",
+}
+
+func (cs ClockStatus) String() string {
+	return ClockStatusName[cs]
+}
+
 type Now struct {
 	Earliest time.Time
 	Latest   time.Time
