@@ -23,4 +23,4 @@ func main() {
 }
 ```
 
-Check out the provided [example](./example/main.go) code for a more complete sample on how to use the client.
+Check out the provided [example](./example/main.go) code for a more complete reference on how to use the client.
