@@ -27,18 +27,22 @@ var ClockStatusName = map[ClockStatus]string{
 
 func (cs ClockStatus) String() string { return ClockStatusName[cs] }
 
+// Now represents a range of bounded timestamp from ClockBound.
+// The "true" time is somewhere within the range.
 type Now struct {
 	Earliest time.Time
 	Latest   time.Time
 	Status   ClockStatus
 }
 
+// Client represents a connection to ClockBound's shared memory file.
 type Client struct {
 	f   *os.File
 	m   mmap.MMap
 	err error
 }
 
+// Now gets a set range of bounded timestamps from ClockBound.
 func (c *Client) Now() (Now, error) {
 	if c.err != nil {
 		return Now{}, c.err
@@ -69,6 +73,7 @@ func (c *Client) Now() (Now, error) {
 	}, nil
 }
 
+// Error implements the `error` interface, returning the internal error.
 func (c *Client) Error() string {
 	switch c.err {
 	case nil:
@@ -78,6 +83,7 @@ func (c *Client) Error() string {
 	}
 }
 
+// Close releases the opened and memory-mapped file.
 func (c *Client) Close() error {
 	if c.err != nil {
 		return c.err
@@ -94,6 +100,7 @@ func (c *Client) Close() error {
 	return nil
 }
 
+// New creates an instance of Client.
 func New() (*Client, error) {
 	c := &Client{}
 	f, err := os.OpenFile(DefaultShmPath, os.O_RDONLY, 0755)
