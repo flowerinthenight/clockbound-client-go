@@ -33,54 +33,30 @@ type Client struct {
 }
 
 func (c *Client) Now() (Now, error) {
-	log.Printf("len: %d\n", len(c.m))
-	log.Printf("%X\n", c.m)
-
-	size := binary.LittleEndian.Uint32(c.m[8:12])
-	log.Printf("size: 0x%X %d\n", size, size)
-
-	ver := binary.LittleEndian.Uint16(c.m[12:14])
-	log.Printf("version: 0x%X %d\n", ver, ver)
-
-	gen := binary.LittleEndian.Uint16(c.m[14:16])
-	log.Printf("generation: 0x%X %d\n", gen, gen)
-
 	// As-of-timestamp
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
-	log.Printf("as-of-ts (s): 0x%X %d\n", asof_s, asof_s)
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
-	log.Printf("as-of-ts (ns): 0x%X %d\n", asof_ns, asof_ns)
-	ts := time.Unix(int64(asof_s), int64(asof_ns))
+	asof := time.Unix(int64(asof_s), int64(asof_ns))
 
 	// Void-after-timestamp
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
-	log.Printf("void-after-ts (s): 0x%X %d\n", va_s, va_s)
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
-	log.Printf("void-after-ts (ns): 0x%X %d\n", va_ns, va_ns)
-	vts := time.Unix(int64(va_s), int64(va_ns))
+	voidAfter := time.Unix(int64(va_s), int64(va_ns))
 
-	log.Printf("as_of_ts  : %v\n", ts.Format(time.RFC3339Nano))
-	log.Printf("void_after: %v\n", vts.Format(time.RFC3339Nano))
+	log.Printf("as_of_ts  : %v\n", asof.Format(time.RFC3339Nano))
+	log.Printf("void_after: %v\n", voidAfter.Format(time.RFC3339Nano))
 
 	bound := binary.LittleEndian.Uint64(c.m[48:56])
 	log.Printf("bound_ns: 0x%X %d\n", bound, bound)
 
-	drift := binary.LittleEndian.Uint32(c.m[56:60])
-	log.Printf("drift: 0x%X %d\n", drift, drift)
-
-	reserved := binary.LittleEndian.Uint32(c.m[60:64])
-	log.Printf("reserved: 0x%X %d\n", reserved, reserved)
-
 	status := binary.LittleEndian.Uint32(c.m[64:68])
 	log.Printf("clock_status: 0x%X %d\n", status, status)
 
-	earliest := ts.Add(-1 * (time.Nanosecond * time.Duration(bound)))
-	latest := ts.Add(time.Nanosecond * time.Duration(bound))
+	earliest := asof.Add(-1 * (time.Nanosecond * time.Duration(bound)))
+	latest := asof.Add(time.Nanosecond * time.Duration(bound))
 
-	unix_ns := latest.UnixNano() - (latest.UnixNano()-earliest.UnixNano())/2
-	log.Printf("up : %v\n", latest)
-	log.Printf("now: %v\n", fromUnixNano(uint64(unix_ns)))
-	log.Printf("low: %v\n", earliest)
+	log.Printf("earliest: %v\n", earliest.Format(time.RFC3339Nano))
+	log.Printf("latest  : %v\n", latest.Format(time.RFC3339Nano))
 	log.Printf("range: %v\n", latest.Sub(earliest))
 
 	return Now{
@@ -130,8 +106,4 @@ func New() (*Client, error) {
 	c.f = f
 	c.m = m
 	return c, nil
-}
-
-func fromUnixNano(nano uint64) time.Time {
-	return time.Unix(int64(nano/1e9), int64(nano%1e9))
 }
