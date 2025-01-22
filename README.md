@@ -2,4 +2,4 @@
 
 ## clockbound-client-go
 
-A Go(lang) client for [AWS ClockBound](https://github.com/aws/clock-bound) using the newer ["ClockBound Shared Memory Protocol Version 1"](https://github.com/aws/clock-bound/blob/main/docs/PROTOCOL.md#clockbound-shared-memory-protocol-version-1).
+A Go client for [AWS ClockBound](https://github.com/aws/clock-bound) using the newer ["ClockBound Shared Memory Protocol Version 1"](https://github.com/aws/clock-bound/blob/main/docs/PROTOCOL.md#clockbound-shared-memory-protocol-version-1). Only tested on Linux on little endian CPU architecture.
