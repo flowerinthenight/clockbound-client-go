@@ -6,4 +6,20 @@ A Go client for [AWS ClockBound](https://github.com/aws/clock-bound) using the n
 
 The [ClockBound daemon](https://github.com/aws/clock-bound/tree/main/clock-bound-d) must be running in order to use this library.
 
-Check out the provided [example](./example/main.go) code on how to use the client.
+Usage looks something like:
+
+```go
+import (
+  ...
+  clockboundclient "github.com/flowerinthenight/clockbound-client-go"
+)
+
+func main() {
+  client, _ := clockboundclient.New()
+  now, _ := client.Now()
+  ...
+  client.Close()
+}
+```
+
+Check out the provided [example](./example/main.go) code for a more complete sample on how to use the client.
