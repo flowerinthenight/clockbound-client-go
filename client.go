@@ -55,17 +55,21 @@ func (c *Client) Now() (Now, error) {
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
 	voidAfter := time.Unix(int64(va_s), int64(va_ns))
-	_ = voidAfter
 
 	bound := binary.LittleEndian.Uint64(c.m[48:56])
 	status := binary.LittleEndian.Uint32(c.m[64:68])
 	earliest := asof.Add(-1 * (time.Nanosecond * time.Duration(bound)))
 	latest := asof.Add(time.Nanosecond * time.Duration(bound))
 
+	clockStatus := ClockStatus(status)
+	if latest.After(voidAfter) {
+		clockStatus = ClockStatusUnknown
+	}
+
 	return Now{
 		Earliest: earliest,
 		Latest:   latest,
-		Status:   ClockStatus(status),
+		Status:   clockStatus,
 	}, nil
 }
 
