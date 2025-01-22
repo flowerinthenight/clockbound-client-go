@@ -38,5 +38,5 @@ jobs:
       run: |
         cd examples/
         GOOS=linux GOARCH=amd64 go build -v
-        tar czvf clockboundclient-${GITHUB_REF_NAME}-x86_64-linux.tar.gz examples
+        tar czvf clockbound-client-sample-${GITHUB_REF_NAME}-x86_64-linux.tar.gz examples
         gh release create ${GITHUB_REF_NAME} ./*.tar.gz --generate-notes
