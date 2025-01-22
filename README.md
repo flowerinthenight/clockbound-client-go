@@ -27,4 +27,4 @@ Check out the provided [example](./example/main.go) code for a more complete ref
 
 ## License
 
-This library is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This library is licensed under the [MIT License](./LICENSE).
