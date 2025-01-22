@@ -48,7 +48,3 @@ func main() {
 	ticker.Stop()
 	client.Close()
 }
-
-func fromUnixNano(nano uint64) time.Time {
-	return time.Unix(int64(nano/1e9), int64(nano%1e9))
-}
