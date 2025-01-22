@@ -15,6 +15,7 @@ import (
 )
 
 func main() {
+  // error checks redacted
   client, _ := clockboundclient.New()
   now, _ := client.Now()
   ...
