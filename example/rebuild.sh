@@ -1,5 +1,5 @@
 #!/bin/bash
 cd ../
 git pull
-cd examples/
+cd example/
 go build -v
