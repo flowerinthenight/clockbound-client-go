@@ -1,4 +1,4 @@
-package clockboundclientgo
+package clockboundclient
 
 import (
 	"context"
