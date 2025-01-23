@@ -57,6 +57,11 @@ $ tail -f /var/log/cloud-init-output.log
 # Download the latest release sample from GitHub.
 $ tar xvzf clockbound-client-sample-v{latest-version}-x86_64-linux.tar.gz
 $ ./example
+2025/01/23 03:03:59 earliest: 1970-01-01T00:04:03.189017214Z
+2025/01/23 03:03:59 latest  : 1970-01-01T00:04:03.190960726Z
+2025/01/23 03:03:59 range: 1.943512ms
+2025/01/23 03:03:59 status: SYNCHRONIZED
+...
 ```
 
 ## License
