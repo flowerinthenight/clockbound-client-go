@@ -48,7 +48,15 @@ $ aws autoscaling create-auto-scaling-group \
   --max-size 1 \
   --availability-zones {target-zone}
 
-# You can now SSH to the instance, setup Go, clone the repo, and run the sample.
+# You can now SSH to the instance. Note that it might take some time before
+# ClockBound is running due to the need to build it in Rust. You can wait
+# for the `clockbound` process, or tail the startup script, like so:
+$ tail -f /var/log/cloud-init-output.log
+
+# Run the sample code:
+$ wget https://github.com/flowerinthenight/clockbound-client-go/releases/download/v0.1.3/clockbound-client-sample-v0.1.3-x86_64-linux.tar.gz
+$ tar xvzf clockbound-client-sample-v0.1.3-x86_64-linux.tar.gz
+$ ./example
 ```
 
 ## License
