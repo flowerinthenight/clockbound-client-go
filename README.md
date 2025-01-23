@@ -25,6 +25,32 @@ func main() {
 
 Check out the provided [example](./example/main.go) code for a more complete reference on how to use the client.
 
+A cloud-init [startup script](./startup-aws-asg.sh) is also provided for spinning up an ASG with the ClockBound daemon already setup.
+
+```sh
+# Create a launch template. ImageId here is Amazon Linux, default VPC.
+# (Added newlines for readability. Might not run when copied as is.)
+$ aws ec2 create-launch-template \
+  --launch-template-name cbclient-lt \
+  --version-description version1 \
+  --launch-template-data '
+  {
+    "UserData":"'"$(cat startup-aws-asg.sh | base64 -w 0)"'",
+    "ImageId":"ami-0f75d1a8c9141bd00",
+    "InstanceType":"t2.micro"
+  }'
+
+# Create the ASG:
+$ aws autoscaling create-auto-scaling-group \
+  --auto-scaling-group-name cbclient-asg \
+  --launch-template LaunchTemplateName=cbclient-lt,Version='1' \
+  --min-size 1 \
+  --max-size 1 \
+  --availability-zones {target-zone}
+
+# You can now SSH to the instance, setup Go, clone the repo, and run the sample.
+```
+
 ## License
 
 This library is licensed under the [MIT License](./LICENSE).
