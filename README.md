@@ -40,7 +40,7 @@ $ aws ec2 create-launch-template \
     "InstanceType":"t2.micro"
   }'
 
-# Create the ASG:
+# Create the ASG; update {target-zone} with actual value:
 $ aws autoscaling create-auto-scaling-group \
   --auto-scaling-group-name cbclient-asg \
   --launch-template LaunchTemplateName=cbclient-lt,Version='1' \
