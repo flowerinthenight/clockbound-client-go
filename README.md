@@ -54,8 +54,8 @@ $ aws autoscaling create-auto-scaling-group \
 $ tail -f /var/log/cloud-init-output.log
 
 # Run the sample code:
-$ wget https://github.com/flowerinthenight/clockbound-client-go/releases/download/v0.1.3/clockbound-client-sample-v0.1.3-x86_64-linux.tar.gz
-$ tar xvzf clockbound-client-sample-v0.1.3-x86_64-linux.tar.gz
+# Download the latest release sample from GitHub.
+$ tar xvzf clockbound-client-sample-v{latest-version}-x86_64-linux.tar.gz
 $ ./example
 ```
 
