@@ -37,7 +37,7 @@ $ aws ec2 create-launch-template \
   --launch-template-data '
   {
     "UserData":"'"$(cat startup-aws-asg.sh | base64 -w 0)"'",
-    "ImageId":"ami-0f75d1a8c9141bd00",
+    "ImageId":"ami-0fb04413c9de69305",
     "InstanceType":"t2.micro"
   }'
 
