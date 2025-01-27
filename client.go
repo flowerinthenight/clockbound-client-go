@@ -48,8 +48,9 @@ func (c *Client) Now() (Now, error) {
 	if c.err != nil {
 		return Now{}, c.err
 	}
-	mg1 := binary.BigEndian.Uint32(c.m[:4])
-	mg2 := binary.BigEndian.Uint32(c.m[4:8])
+
+	mg1 := binary.LittleEndian.Uint32(c.m[:4])
+	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
 	log.Printf("magic: %X %X\n", mg1, mg2)
 
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
@@ -58,12 +59,13 @@ func (c *Client) Now() (Now, error) {
 
 	// t1_s := binary.BigEndian.Uint64(c.m[16:24])
 	// t1_ns := binary.BigEndian.Uint64(c.m[24:32])
-	t1 := time.Unix(int64(asof_ns), int64(asof_s))
-	log.Printf("t1: %v\n", t1)
+	// t1 := time.Unix(int64(asof_ns), int64(asof_s))
+	log.Printf("asof: %v\n", asof)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
 	voidAfter := time.Unix(int64(va_s), int64(va_ns))
+	log.Printf("void_after: %v\n", voidAfter)
 
 	bound := binary.LittleEndian.Uint64(c.m[48:56])
 	status := binary.LittleEndian.Uint32(c.m[64:68])
