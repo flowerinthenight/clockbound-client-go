@@ -63,11 +63,14 @@ func (c *Client) Now() (Now, error) {
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
 	asof := time.Unix(int64(asof_s), int64(asof_ns))
-
-	// t1_s := binary.BigEndian.Uint64(c.m[16:24])
-	// t1_ns := binary.BigEndian.Uint64(c.m[24:32])
-	// t1 := time.Unix(int64(asof_ns), int64(asof_s))
 	log.Printf("asof: %v\n", asof)
+
+	t1 := binary.LittleEndian.Uint32(c.m[16:20])
+	t2 := binary.LittleEndian.Uint32(c.m[20:24])
+	t3 := binary.LittleEndian.Uint32(c.m[24:28])
+	t4 := binary.LittleEndian.Uint32(c.m[28:32])
+	t := time.Unix(int64(t1|t2), int64(t3|t4))
+	log.Printf("t: %v\n", t)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
