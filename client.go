@@ -53,6 +53,9 @@ func (c *Client) Now() (Now, error) {
 	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
 	log.Printf("magic: %X %X\n", mg1, mg2)
 
+	size := binary.LittleEndian.Uint32(c.m[8:16])
+	log.Printf("size: %d\n", size)
+
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
 	asof := time.Unix(int64(asof_s), int64(asof_ns))
