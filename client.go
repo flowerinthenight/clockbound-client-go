@@ -48,8 +48,8 @@ func (c *Client) Now() (Now, error) {
 	if c.err != nil {
 		return Now{}, c.err
 	}
-	mg1 := binary.LittleEndian.Uint32(c.m[:4])
-	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
+	mg1 := binary.BigEndian.Uint32(c.m[:4])
+	mg2 := binary.BigEndian.Uint32(c.m[4:8])
 	log.Printf("magic: %X %X\n", mg1, mg2)
 
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
