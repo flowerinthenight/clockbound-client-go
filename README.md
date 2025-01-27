@@ -1,4 +1,4 @@
-**NOTE: Unusable at the moment. Still under investigation but it looks like the As-Of-Timestamp value read from SHM indicates elapsed time from boot, not from Jan 1 1970 UTC (Unix epoch). Could the the way SHM is being read.**
+**NOTE: Unusable at the moment. Still under investigation but it looks like the As-Of-Timestamp value read from SHM indicates elapsed time from boot, not from Jan 1 1970 UTC (Unix epoch). Could be the way SHM is being read.**
 
 ---
 
