@@ -48,11 +48,9 @@ func (c *Client) Now() (Now, error) {
 	if c.err != nil {
 		return Now{}, c.err
 	}
-
-	// log.Printf("magic: %X %X %X %X %X %X %X %X\n", c.m[0], c.m[1], c.m[2], c.m[3], c.m[4], c.m[5], c.m[6], c.m[7])
-
-	// mg1 := binary.LittleEndian.Uint32(c.m[:4])
-	// log.Printf("magic1: %X\n", mg1)
+	mg1 := binary.LittleEndian.Uint32(c.m[:4])
+	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
+	log.Printf("magic: %X %X\n", mg1, mg2)
 
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
