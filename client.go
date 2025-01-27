@@ -70,7 +70,7 @@ func (c *Client) Now() (Now, error) {
 	t3 := binary.LittleEndian.Uint32(c.m[24:28])
 	t4 := binary.LittleEndian.Uint32(c.m[28:32])
 	t := time.Unix(int64(t1|t2), int64(t3|t4))
-	log.Printf("t: %v\n", t)
+	log.Printf("t   : %v\n", t)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
