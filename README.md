@@ -1,3 +1,7 @@
+**NOTE: Unusable at the moment. Still under investigation but it looks like the As-Of-Timestamp value read from SHM indicates elapsed time from boot, not from Jan 1 1970 UTC (Unix epoch). Could the the way SHM is being read.**
+
+---
+
 [![main](https://github.com/flowerinthenight/clockbound-client-go/actions/workflows/main.yml/badge.svg)](https://github.com/flowerinthenight/clockbound-client-go/actions/workflows/main.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/flowerinthenight/clockbound-client-go.svg)](https://pkg.go.dev/github.com/flowerinthenight/clockbound-client-go)
 
