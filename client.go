@@ -66,8 +66,8 @@ func (c *Client) Now() (Now, error) {
 	// 	uint64(b[7])<<32 | uint64(b[6])<<40 | uint64(b[5])<<48 | uint64(b[4])<<56
 	// log.Printf("tmp: %v\n", tmp)
 
-	t1 := uint64(binary.LittleEndian.Uint32(c.m[16:20]))
-	t2 := uint64(binary.LittleEndian.Uint32(c.m[20:24]))
+	t1 := uint64(binary.BigEndian.Uint32(c.m[16:20]))
+	t2 := uint64(binary.BigEndian.Uint32(c.m[20:24]))
 	log.Printf("t_1_2: %d %d %v\n", t1, t2, t1|t2)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
