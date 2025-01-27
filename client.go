@@ -53,11 +53,11 @@ func (c *Client) Now() (Now, error) {
 	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
 	log.Printf("magic: %X %X\n", mg1, mg2)
 
-	size := binary.LittleEndian.Uint64(c.m[8:16])
+	size := binary.LittleEndian.Uint32(c.m[8:12])
 	log.Printf("size: %d\n", size)
-	ver := binary.LittleEndian.Uint32(c.m[16:20])
+	ver := binary.LittleEndian.Uint32(c.m[12:14])
 	log.Printf("version: %d\n", ver)
-	gen := binary.LittleEndian.Uint32(c.m[20:24])
+	gen := binary.LittleEndian.Uint32(c.m[14:16])
 	log.Printf("generation: %d\n", gen)
 
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
