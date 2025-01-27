@@ -3,7 +3,6 @@ package clockboundclient
 import (
 	"encoding/binary"
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -49,33 +48,33 @@ func (c *Client) Now() (Now, error) {
 		return Now{}, c.err
 	}
 
-	mg1 := binary.LittleEndian.Uint32(c.m[:4])
-	mg2 := binary.LittleEndian.Uint32(c.m[4:8])
-	log.Printf("magic: %X %X\n", mg1, mg2)
+	// mg1 := binary.LittleEndian.Uint32(c.m[:4])
+	// mg2 := binary.LittleEndian.Uint32(c.m[4:8])
+	// log.Printf("magic: %X %X\n", mg1, mg2)
 
-	size := binary.LittleEndian.Uint32(c.m[8:12])
-	log.Printf("size: %d\n", size)
-	ver := binary.LittleEndian.Uint16(c.m[12:14])
-	log.Printf("version: %d\n", ver)
-	gen := binary.LittleEndian.Uint16(c.m[14:16])
-	log.Printf("generation: %d\n", gen)
+	// size := binary.LittleEndian.Uint32(c.m[8:12])
+	// log.Printf("size: %d\n", size)
+	// ver := binary.LittleEndian.Uint16(c.m[12:14])
+	// log.Printf("version: %d\n", ver)
+	// gen := binary.LittleEndian.Uint16(c.m[14:16])
+	// log.Printf("generation: %d\n", gen)
 
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
 	asof := time.Unix(int64(asof_s), int64(asof_ns))
-	log.Printf("asof: %v\n", asof)
+	// log.Printf("asof: %v\n", asof)
 
-	t1 := binary.LittleEndian.Uint32(c.m[16:20])
-	t2 := binary.LittleEndian.Uint32(c.m[20:24])
-	t3 := binary.LittleEndian.Uint32(c.m[24:28])
-	t4 := binary.LittleEndian.Uint32(c.m[28:32])
-	t := time.Unix(int64(t1|t2), int64(t3|t4))
-	log.Printf("t   : %v\n", t)
+	// t1 := binary.LittleEndian.Uint32(c.m[16:20])
+	// t2 := binary.LittleEndian.Uint32(c.m[20:24])
+	// t3 := binary.LittleEndian.Uint32(c.m[24:28])
+	// t4 := binary.LittleEndian.Uint32(c.m[28:32])
+	// t := time.Unix(int64(t1|t2), int64(t3|t4))
+	// log.Printf("t   : %v\n", t)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
 	voidAfter := time.Unix(int64(va_s), int64(va_ns))
-	log.Printf("void_after: %v\n", voidAfter)
+	// log.Printf("void_after: %v\n", voidAfter)
 
 	bound := binary.LittleEndian.Uint64(c.m[48:56])
 	status := binary.LittleEndian.Uint32(c.m[64:68])
