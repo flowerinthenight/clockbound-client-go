@@ -65,7 +65,7 @@ func (c *Client) Now() (Now, error) {
 
 	t1 := binary.LittleEndian.Uint32(c.m[16:20])
 	t2 := binary.LittleEndian.Uint32(c.m[20:24])
-	log.Printf("t_1_2: %X\n", t1|t2)
+	log.Printf("t_1_2: %d %d\n", t1, t2)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
