@@ -3,6 +3,7 @@ package clockboundclient
 import (
 	"encoding/binary"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -51,6 +52,11 @@ func (c *Client) Now() (Now, error) {
 	asof_s := binary.LittleEndian.Uint64(c.m[16:24])
 	asof_ns := binary.LittleEndian.Uint64(c.m[24:32])
 	asof := time.Unix(int64(asof_s), int64(asof_ns))
+
+	t1_s := binary.BigEndian.Uint64(c.m[16:24])
+	t1_ns := binary.BigEndian.Uint64(c.m[24:32])
+	t1 := time.Unix(int64(t1_s), int64(t1_ns))
+	log.Printf("be: %v\n", t1)
 
 	va_s := binary.LittleEndian.Uint64(c.m[32:40])
 	va_ns := binary.LittleEndian.Uint64(c.m[40:48])
