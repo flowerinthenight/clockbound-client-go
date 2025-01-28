@@ -1,5 +1,7 @@
 **NOTE: Unusable at the moment. Still under investigation but it looks like the As-Of-Timestamp value read from SHM indicates elapsed time from boot, not from Jan 1 1970 UTC (Unix epoch). Could be the way SHM is being read.**
 
+In the meantime, if you can use CGO, have a look at [clockbound-ffi-go](https://github.com/flowerinthenight/clockbound-ffi-go).
+
 ---
 
 [![main](https://github.com/flowerinthenight/clockbound-client-go/actions/workflows/main.yml/badge.svg)](https://github.com/flowerinthenight/clockbound-client-go/actions/workflows/main.yml)
