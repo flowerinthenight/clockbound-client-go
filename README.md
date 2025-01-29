@@ -57,7 +57,7 @@ $ aws autoscaling create-auto-scaling-group \
 
 # You can now SSH to the instance. Note that it might take some time before
 # ClockBound is running due to the need to build it in Rust. You can wait
-# for the `clockbound` process, or tail the startup script, like so:
+# for the `clockbound` process, or tail the startup script output, like so:
 $ tail -f /var/log/cloud-init-output.log
 
 # Run the sample code:
